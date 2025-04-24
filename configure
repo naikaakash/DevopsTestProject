@@ -1,0 +1,23 @@
+#!/bin/sh
+
+echo "Generating Makefile..."
+cat > Makefile <<EOF
+CC=gcc
+CFLAGS=-Wall -g
+TARGET=hello
+
+all: \$(TARGET)
+
+\$(TARGET): hello.o
+	\$(CC) \$(CFLAGS) -o \$(TARGET) hello.o
+
+hello.o: hello.c
+	\$(CC) \$(CFLAGS) -c hello.c
+
+clean:
+	rm -f \$(TARGET) *.o
+
+EOF
+
+echo "Makefile created."
+
