@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: 'aakashnaik-arm-vm'
 
 steps:
 - script: echo Hello, world!
