@@ -24,7 +24,7 @@ jobs:
       continue-on-error: true  # Continue even if the executable fails
 
     - name: Upload C binary artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # Changed to v3
       with:
         name: c-binary
         path: ./c_binary/hello  # Adjust the path to your C binary executable
@@ -40,7 +40,7 @@ jobs:
       continue-on-error: true  # Continue even if the executable fails
 
     - name: Upload C++ binary artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # Changed to v3
       with:
         name: cpp-binary
         path: ./cpp_binary/build/myapp  # Adjust the path to your C++ binary executable
@@ -54,7 +54,7 @@ jobs:
       continue-on-error: true  # Continue even if the executable fails
 
     - name: Upload Rust binary artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # Changed to v3
       with:
         name: rust-binary
         path: rust_binary/hello_world/target/release/hello_world  # Adjust the path to your Rust binary executable
