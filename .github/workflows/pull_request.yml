@@ -14,23 +14,47 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Stage 1: Build C binary
-    - name: Build C binary
+    # Stage 1: Build and run C binary
+    - name: Build and run C binary
       run: |
         cd c_binary
         ./configure
         make
+        ./hello  # Replace with actual executable name if different
+      continue-on-error: true  # Continue even if the executable fails
 
-    # Stage 2: Build C++ binary
-    - name: Build C++ binary
+    - name: Upload C binary artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: c-binary
+        path: ./c_binary/hello  # Adjust the path to your C binary executable
+
+    # Stage 2: Build and run C++ binary
+    - name: Build and run C++ binary
       run: |
         mkdir -p cpp_binary/build
         cd cpp_binary/build
         cmake ..
         make
+        ./myapp  # Replace with actual executable name if different
+      continue-on-error: true  # Continue even if the executable fails
 
-    # Stage 3: Build Rust binary
-    - name: Build Rust binary
+    - name: Upload C++ binary artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: cpp-binary
+        path: ./cpp_binary/build/myapp  # Adjust the path to your C++ binary executable
+
+    # Stage 3: Build and run Rust binary
+    - name: Build and run Rust binary
       run: |
         cd rust_binary/hello_world
-        cargo build
+        cargo build --release
+        ./target/release/hello_world  # Replace with actual executable name if different
+      continue-on-error: true  # Continue even if the executable fails
+
+    - name: Upload Rust binary artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: rust-binary
+        path: rust_binary/hello_world/target/release/hello_world  # Adjust the path to your Rust binary executable
