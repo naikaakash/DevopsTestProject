@@ -24,6 +24,7 @@ jobs:
     # Stage 2: Build C++ binary
     - name: Build C++ binary
       run: |
+        mkdir -p cpp_binary/build
         cd cpp_binary/build
         cmake ..
         make
