@@ -54,3 +54,25 @@ jobs:
       with:
         name: rust-binary
         path: rust_binary/hello_world/target/release/hello_world  # Adjust path if necessary
+
+    # Stage 4: Build and Deploy Rust Documentation
+    - name: Build Rust documentation
+      run: |
+        cd rust_binary/hello_world
+        cargo doc --no-deps
+    
+    - name: Copy Rust docs to site folder
+      run: |
+        rm -rf docs/hello_world
+        mkdir -p docs/hello_world
+        cp -r rust_binary/hello_world/target/doc/* docs/hello_world/
+    
+    - name: Configure Git for commit
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+    
+    - name: Commit and push documentation updates
+      run: |
+        git add docs/
+        git diff --cached --quiet || (git commit -m "Update Rust documentation" && git push)
