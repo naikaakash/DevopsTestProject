@@ -1,0 +1,35 @@
+name: C/C++/Rust CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # Stage 1: Build C binary
+    - name: Build C binary
+      run: |
+        cd c_binary
+        ./configure
+        make
+
+    # Stage 2: Build C++ binary
+    - name: Build C++ binary
+      run: |
+        cd cpp_binary/build
+        cmake ..
+        make
+
+    # Stage 3: Build Rust binary
+    - name: Build Rust binary
+      run: |
+        cd rust_binary/hello_world
+        cargo build
